@@ -43,23 +43,23 @@
 				</view>
 			</view>
 			<view class="friends">
-				<view class="friend-list">
+				<view class="friend-list" v-for="(item,index) in friend" :key="index">
 					<view class="friend-list-l">
-						<text class="tip">1</text>
-						<image src="../../static/logo.png" mode=""></image>
+						<text class="tip">{{item.tip}}</text>
+						<image :src="'../../static/'+item.imgurl" mode=""></image>
 					</view>
 					<view class="friend-list-r">
 						<view class="top">
 							<view class="name">
-								都知道
+								{{item.name}}
 							</view>
 							<view class="time">
-								13:43
+								{{changeTime(item.time)}}
 							</view>
 							
 						</view>
 						<view class="news">
-							事物所包含的实质性事物dsfsdfdsfsddsffsdfsdfds
+							{{item.news}}
 						</view>
 					</view>
 				</view>
@@ -69,17 +69,25 @@
 </template>
 
 <script>
+	import datas from "../../commons/js/datas.js"
+	import myfun from "../../commons/js/myfun.js"
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				friend: []
 			}
 		},
 		onLoad() {
-
+			this.getFrindex();
 		},
 		methods: {
-
+			changeTime:function(date){
+				return myfun.dateTime(date)
+			},
+			getFrindex:function(){
+				this.friend=datas.frineds();
+				console.log((this.friend))
+			}
 		}
 	}
 </script>
@@ -113,7 +121,7 @@
 				width: 68rpx;
 				height: 68rpx;
 				border-radius: 16rpx;
-				background-color: $uni-color-primary;
+				
 			}
 		}
 		.top-bar-center{
@@ -147,15 +155,19 @@
 				padding: 18rpx 0 0 18rpx;
 				width: 52rpx;
 				height: 52rpx;
+				
 			}
 		}
 	}
 	.main{
-		padding: 88rpx $uni-spacing-col-base 0;
+		padding-top: 104rpx;
 	}
 	.friend-list{
 		height: 96rpx;
-		padding: 16rpx 0;
+		padding: 16rpx $uni-spacing-col-base;
+		&:active{
+			background-color: $uni-bg-color-grey;
+		}
 		.friend-list-l{
 			position: relative;
 			float: left;
@@ -163,6 +175,7 @@
 				width: 96rpx;
 				height: 96rpx;
 				border-radius: $uni-border-radius-base;
+				background-color: $uni-color-primary;
 			}
 			.tip{
 				position: absolute;
