@@ -94,10 +94,12 @@
 
 <style lang="scss">
 	.content {
-		// display: flex;
-		// flex-direction: column;
-		// align-items: center;
-		// justify-content: center;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		padding-top: var(--status-bar-height);
+		padding-bottom: $uni-spacing-col-base;
 	}
 	.top-bar{
 		position: fixed;
@@ -105,6 +107,7 @@
 		left: 0;
 		z-index: 1001;
 		height: 88rpx;
+		padding-top: var(--status-bar-height);
 		width: 100%;
 		box-sizing: border-box;
 		background-color: $uni-bg-color;
@@ -161,6 +164,7 @@
 	}
 	.main{
 		padding-top: 104rpx;
+		margin-top: var(--status-bar-height);
 	}
 	.friend-list{
 		height: 96rpx;
