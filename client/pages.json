@@ -7,7 +7,13 @@
 				"navigationStyle":"custom"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/singnin/singnin",
+            "style" : {
+				"navigationStyle":"custom"
+			}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
