@@ -11,6 +11,7 @@
 
 1. node 
 2. express
+3. body-parser(处理post提交的数据)
 
 ## 数据库
 `使用MongoDB数据库`
