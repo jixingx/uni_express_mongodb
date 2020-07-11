@@ -2,7 +2,7 @@
 	<view class="content">
 		<view class="top-bar">
 			<view class="top-bar-right">
-				<view class="text">
+				<view class="text" @tap="toSignUp">
 					注册
 				</view>
 			</view>
@@ -18,14 +18,14 @@
 				您好，欢迎来到 yike!
 			</view>
 			<view class="inputs">
-				<input type="text" value="" placeholder="用户名/邮箱" class="user" placeholder-style="color:#bbb;font-weighht:400;"/>
-				<input type="password" value="" placeholder="密码" class="psw"placeholder-style="color:#bbb;font-weighht:400;"/>
+				<input type="text" value="" placeholder="用户名/邮箱" class="user" placeholder-style="color:#bbb;font-weighht:400;" @blur="getUser"/>
+				<input type="password" value="" placeholder="密码" class="psw"placeholder-style="color:#bbb;font-weighht:400;" @blur="getPsw"/>
 			</view>
 			<view class="tips">
 				输入用户或密码错误！
 			</view>
 		</view>
-		<view class="submit" @tap="testFun">登录</view>
+		<view class="submit" @tap="login">登录</view>
 	</view>
 </template>
 
@@ -33,10 +33,12 @@
 	export default {
 		data() {
 			return {
-				
+				user:'',
+				psw:''
 			};
 		},
 		methods:{
+			//后台连接测试
 			testFun:function(){
 				uni.request({
 					url:'http://localhost:3000/ceshi/home',
@@ -48,6 +50,26 @@
 						console.log(data)
 					}
 				})
+			},
+			//跳转到注册页面
+			toSignUp:function(){
+				uni.navigateTo({
+					url:'../signup/signup'
+				})
+			},
+			//获取用户名/邮箱
+			getUser:function(e){
+				this.user=e.detail.value
+			},
+			//获取密码
+			getPsw:function(e){
+				this.psw=e.detail.value
+			},
+			//登录提交
+			login:function(){
+				if(this.user && this.psw){
+					console.log('提交')
+				}
 			}
 		}
 	}

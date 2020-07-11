@@ -13,6 +13,12 @@
 				"navigationStyle":"custom"
 			}
         }
+        ,{
+            "path" : "pages/signup/signup",
+            "style" : {
+				"navigationStyle":"custom"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
