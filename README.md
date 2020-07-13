@@ -21,78 +21,76 @@
 
 ### 数据集合
 
-1. 用户集合
+1. 用户集合`User`
 
 字段|属性|描述
 --| --|--|
 id|ObjectID|主键id
-用户名|String|用户名
-邮箱|String|邮箱
-邮箱|String|邮箱
-邮箱|enum|性别
-邮箱|String|生日
-邮箱|Nubmer|电话
-邮箱|String|密码
-邮箱|date|注册时间
-邮箱|String|签名
-邮箱|String|头像链接
-邮箱|String|用户等级(0,1,2...)
+name|String|用户名
+psw|String|密码
+email|String|邮箱
+sex|String|性别
+birth|Date|生日
+Phone|Nubmer|电话
+time|date|注册时间
+explain|String|签名
+imgurl|String|头像链接
+grade|Number|用户等级(0,1,2...)
 
-2. 好友集合
-
-字段|属性|描述
---| --|--|
-id|ObjectID|主键id
-用户id|String|用户id
-用户id|String|好友id
-邮箱|date|生成时间
-邮箱|enum|好友状态（0表示已为好友，1表示申请中，2表示申请发送方对方还未同意）
-邮箱|String|头像链接
-
-3. 群集合
+2. 好友集合`Friend`
 
 字段|属性|描述
 --| --|--|
 id|ObjectID|主键id
-用户名|String|群主ID
-邮箱|String|群名
-邮箱|String|群封面链接
-邮箱|enum|群公告
-邮箱|String|群建立时间
+userId|ObjectId|用户id
+friendID|ObjectId|好友id
+time|date|生成时间
+state|String|好友状态（0表示已为好友，1表示申请中，2表示申请发送方对方还未同意）
+
+3. 群集合`Group`
+
+字段|属性|描述
+--| --|--|
+id|ObjectID|主键id
+userId|ObjectId|群主ID
+name|String|群名
+imgurl|String|群封面链接
+notice|String|群公告
+time|Date|群建立时间
 
 4. 群信息集合
 
 字段|属性|描述
 --| --|--|
 id|ObjectID|主键id
-用户名|String|群ID
-邮箱|String|发送者id
-邮箱|String|发送内容
-邮箱|enum|内容类型（0文字，1图片连接，2音频连接...）
-邮箱|String|发送时间
+groupId|ObjectId|群ID
+userId|ObjectId|发送者id
+message|String|发送内容
+types|String|内容类型（0文字，1图片连接，2音频连接...）
+time|Date|发送时间
 
-5. 群成员集合
+5. 群成员集合`GroupUser`
 
 字段|属性|描述
 --| --|--|
 id|ObjectID|主键id
-用户名|String|群ID
-邮箱|String|用户id
-邮箱|String|群内名
-邮箱|enum|加入时间
-邮箱|String|群建立时间
-邮箱|String|未读消息数
-邮箱|String|是否屏蔽群消息(0不屏蔽,1屏蔽)
+groupId|String|群ID
+userId|String|用户id
+name|String|群内名
+time|Date|加入时间
+buildTime|Date|群建立时间
+tip|Number|未读消息数
+shield|Number|是否屏蔽群消息(0不屏蔽,1屏蔽)
 
-6. 一对一信息集合
+6. 一对一信息集合`Message`
 
 字段|属性|描述
 --| --|--|
-id|ObjectID|逐渐id
-id|ObjectID|发送者id
-用户id|String|接收者id
-用户id|String|发送内容
-邮箱|enum|内容类型（0文字，1图片连接，2音频连接...）
-邮箱|String|发送时间
-邮箱|enum|消息状态（0已读，1未读）
+id|ObjectID|主键id
+userId|ObjectID|发送者id
+friendID|ObjectID|接收者id
+message|String|发送内容
+types|String|内容类型（0文字，1图片连接，2音频连接...）
+time|Date|发送时间
+state|Number|消息状态（0已读，1未读）
 
