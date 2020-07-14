@@ -107,39 +107,40 @@
 </script>
 
 <style lang="scss">
-	.content {
+	@import "../../commons/css/mycss.scss";
+	// .content {
 		
-		padding-top: var(--status-bar-height);
-	}
-	.top-bar{
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 1001;
-		height: 88rpx;
-		padding-top: var(--status-bar-height);
-		width: 100%;
-		background-color: $uni-bg-color;
-		background: $uni-bg-color;
+	// 	padding-top: var(--status-bar-height);
+	// }
+	// .top-bar{
+	// 	position: fixed;
+	// 	top: 0;
+	// 	left: 0;
+	// 	z-index: 1001;
+	// 	height: 88rpx;
+	// 	padding-top: var(--status-bar-height);
+	// 	width: 100%;
+	// 	background-color: $uni-bg-color;
+	// 	background: $uni-bg-color;
 		
-		.top-bar-left{
-			float: left;
-			padding-left: 32rpx;
-			width: 88rpx;
-			height: 88rpx;
-			.text{
-				font-size: $uni-font-size-lg;
-				font-weight: 500;
-				color: $uni-text-color;
-				line-height: 88rpx;
-			}
-			.back-img{
-				margin-top: 21rpx;
-				width: 46rpx;
-				height: 46rpx;
-			}
-		}
-	}
+	// 	.top-bar-left{
+	// 		float: left;
+	// 		padding-left: 32rpx;
+	// 		width: 88rpx;
+	// 		height: 88rpx;
+	// 		.text{
+	// 			font-size: $uni-font-size-lg;
+	// 			font-weight: 500;
+	// 			color: $uni-text-color;
+	// 			line-height: 88rpx;
+	// 		}
+	// 		.back-img{
+	// 			margin-top: 21rpx;
+	// 			width: 46rpx;
+	// 			height: 46rpx;
+	// 		}
+	// 	}
+	// }
 	.logo{
 		text-align: center;
 		image{

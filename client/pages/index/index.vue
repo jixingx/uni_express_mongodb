@@ -45,7 +45,7 @@
 			<view class="friends">
 				<view class="friend-list" v-for="(item,index) in friend" :key="index">
 					<view class="friend-list-l">
-						<text class="tip">{{item.tip}}</text>
+						<text class="tip" v-if="item.tip>0">{{item.tip}}</text>
 						<image :src="'../../static/'+item.imgurl" mode=""></image>
 					</view>
 					<view class="friend-list-r">
@@ -93,78 +93,23 @@
 </script>
 
 <style lang="scss">
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-		padding-top: var(--status-bar-height);
-		padding-bottom: $uni-spacing-col-base;
-	}
+	@import "../../commons/css/mycss.scss";
+	// .content {
+	// 	display: flex;
+	// 	flex-direction: column;
+	// 	align-items: center;
+	// 	justify-content: center;
+	// 	padding-top: var(--status-bar-height);
+		
+	// }
 	.top-bar{
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 1001;
-		height: 88rpx;
-		padding-top: var(--status-bar-height);
-		width: 100%;
-		box-sizing: border-box;
-		background-color: $uni-bg-color;
-		//padding-left: $uni-spacing-col-base;
-		//padding-right: $uni-spacing-col-base;
-		// box-shadow: 0px 1px 0px 0px rgba(0,0,0,0.1);
-		background: $uni-bg-color;
+		background: rgba(255,255,255,0.9);
 		border-bottom:1px solid $uni-border-color;
-		.top-bar-left{
-			float: left;
-			padding-left: $uni-spacing-col-base;
-			image{
-				padding-top: 10rpx;
-				width: 68rpx;
-				height: 68rpx;
-				border-radius: 16rpx;
-				
-			}
-		}
-		.top-bar-center{
-			position: absolute;
-			text-align: center;
-			left: 0;
-			top: 0;
-			right: 0;
-			bottom: 0;
-			margin:auto;
-			.logo{
-				padding-top: 39rpx;
-				width: 88rpx;
-				height: 42rpx;
-			}
-		}
-		.top-bar-right{
-			float: right;
-			padding-right: 14rpx;
-			.search{
-				width: 88rpx;
-				height: 88rpx;
-				display: inline-block;
-			}
-			.add{
-				width: 88rpx;
-				height: 88rpx;
-				display: inline-block;
-			}
-			image{
-				padding: 18rpx 0 0 18rpx;
-				width: 52rpx;
-				height: 52rpx;
-				
-			}
-		}
 	}
 	.main{
 		padding-top: 104rpx;
-		margin-top: var(--status-bar-height);
+		padding-bottom: $uni-spacing-col-base;
+		// margin-top: var(--status-bar-height);
 	}
 	.friend-list{
 		height: 96rpx;
@@ -186,10 +131,11 @@
 				z-index: 10;
 				top: -6rpx;
 				left: 68rpx;
-				min-width: 36rpx;
+				min-width: 22rpx;
 				height: 36rpx;
+				padding: 0 8rpx;
 				background: $uni-color-warning;
-				border-radius: $uni-border-radius-circle;
+				border-radius: 18rpx;
 				font-size: $uni-font-size-sm;
 				color: $uni-text-color-inverse;
 				line-height: 36rpx;

@@ -12,7 +12,7 @@ export default{
 			{
 				id:2,
 				imgurl:"logo.png",
-				tip:4,
+				tip:0,
 				name:'大海3',
 				time:new Date(),
 				news:"事物所包含的实质性事物dsfsdfdsfsddsffsdfsdfds"
