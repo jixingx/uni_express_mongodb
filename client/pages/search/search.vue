@@ -6,43 +6,28 @@
 				<input type="search" value="" placeholder="搜索用户/群" class="search" placeholder-style="color:#bbb;font-weighht:400;" @input="search" />
 			</view>
 			<view class="top-bar-right">
-				<view class="text">
+				<view class="text" @tap="back">
 					取消
 				</view>
 			</view>
 		</view>
 		<view class="main">
 			<view class="search-user result">
-				<view class="title">
+				<view class="title" v-if="userarr.length>0">
 					用户
 				</view>
-				<view class="list user">
+				<view class="list user" v-for="(item,index) in userarr" :key="index">
 					<image src="../../static/logo.png" mode=""></image>
 					<view class="names">
-						<view class="name">
-							大力出奇迹
+						<view class="name" v-html="item.name">
+							
 						</view>
-						<view class="email">
-							dalichuqiji@163.com
-						</view>
-					</view>
-					<view class="right-bt send">
-						发消息
-					</view>
-				</view>
-				<view class="list user">
-					<image src="../../static/logo.png" mode=""></image>
-					<view class="names">
-						<view class="name">
-							大力出奇迹
-						</view>
-						<view class="email">
-							dalichuqiji@163.com
+						<view class="email" v-html="item.email">
+							
 						</view>
 					</view>
-					<view class="right-bt add">
-						加好友
-					</view>
+					<view class="right-bt send" v-if="item.tip==1">发消息</view>
+					<view class="right-bt add" v-else>加好友</view>
 				</view>
 			</view>
 		</view>
@@ -50,15 +35,54 @@
 </template>
 
 <script>
+	import datas from '../../commons/js/datas.js'
 	export default {
 		data() {
 			return {
-				searchval:''
+				userarr:[]
 			};
 		},
 		methods:{
+			//获取关键词
 			search:function(e){
-				let searchval=e.detail.value
+				this.userarr=[];
+				let searchval=e.detail.value;
+				if(searchval.length>0){
+					this.searchUser(searchval);
+				}
+				
+			},
+			//寻找关键词匹配的好友
+			searchUser:function(e){
+				let arr=datas.frineds();
+				let exp=eval("/"+e+"/g");
+				for(let i=0;i<arr.length;i++){
+					if(arr[i].name.search(e)!=-1||arr[i].email.search(e)!=-1){
+						this.isFriend(arr[i])
+						arr[i].name=arr[i].name.replace(exp,"<span style='color:#4AAAFF'>"+e+"</span>")
+						arr[i].email=arr[i].email.replace(exp,"<span style='color:#4AAAFF'>"+e+"</span>")
+						this.userarr.push(arr[i]);
+					}
+				}
+				// console.log(this.userarr)
+			},
+			//判断是否为好友
+			isFriend:function(e){
+				let tip=0;
+				let arr=datas.isFriend();
+				for(let i=0;i<arr.length;i++){
+					if(arr[i].friend==e.id){
+						tip=1;
+					}
+				}
+				e.tip=tip
+				// console.log(tip)
+			},
+			//返回上页
+			back:function(){
+				uni.navigateBack({
+					delta:1
+				})
 			}
 		}
 	}
