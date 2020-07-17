@@ -25,7 +25,7 @@
 				输入用户或密码错误！
 			</view>
 		</view>
-		<view class="submit" @tap="login">登录</view>
+		<view class="submit" @tap="testFun">登录</view>
 	</view>
 </template>
 
@@ -41,11 +41,11 @@
 			//后台连接测试
 			testFun:function(){
 				uni.request({
-					url:'http://localhost:3000/ceshi/home',
+					url:'http://localhost:3000/user/register',
 					data:{
-						
+						user:this.user
 					},
-					method:"GET",
+					method:"POST",
 					success:function(data){
 						console.log(data)
 					}

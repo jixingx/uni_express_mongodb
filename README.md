@@ -13,6 +13,7 @@
 2. express
 3. body-parser(处理post提交的数据)
 4. mongoose(连接数据库)
+5. nodemailer(链接邮箱)
 
 ## 数据库
 `使用MongoDB数据库`

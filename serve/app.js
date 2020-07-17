@@ -29,7 +29,9 @@ app.get('/',function(req,res){
 
 //配置路由
 var ceshi=require('./router/ceshi')
+var user=require('./router/user')
 app.use('/ceshi',ceshi)
+app.use('/user',user)
 
 //处理404
 app.use(function(req,res,next){
