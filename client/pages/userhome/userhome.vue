@@ -17,10 +17,10 @@
 		</view>
 		<view class="main">
 			<view class="user-header">
-				<view class="sex" :style="{backgroundColor:sexBg}">
+				<view class="sex" :style="{backgroundColor:sexBg}" :animation="animatiionData3">
 					<image src="../../static/images/userhome/female.png" mode=""></image>
 				</view>
-				<image src="../../static/logo.png" class="user-img" mode="aspectFill"></image>
+				<image src="../../static/logo.png" class="user-img" mode="aspectFill" :animation="animatiionData2"></image>
 			</view>
 			<view class="user-imf">
 				<view class="name">
@@ -34,17 +34,17 @@
 				</view>
 			</view>
 			<view class="bottom-bar">
-				<view class="bottom-btn">加为好友</view>
+				<view class="bottom-btn" @tap="addFriendAnims">加为好友</view>
 			</view>
 		</view>
-		<view class="add-misg" :style="{height:addHeight+'px'}">
+		<view class="add-misg" :style="{height:addHeight+'px',bottom:-+addHeight+'px'}" :animation="animatiionData">
 			<view class="name">
 				{{user.name}}
 			</view>
 			<textarea :value="myname+'请求加为好友'" maxlength="120" class="add-main" />
 		</view>
-		<view class="add-bt">
-			<view class="close">
+		<view class="add-bt" :animation="animatiionData1">
+			<view class="close" @tap="addFriendAnims">
 				取消
 			</view>
 			<view class="send">
@@ -65,7 +65,12 @@
 					name:'秋风',
 					nick:'虬枝国',
 					intr:'夜，结束了一天的喧嚣后安静下来，伴随着远处路灯那微弱的光。风，毫无预兆地席卷整片旷野，撩动人的思绪万千。'
-				}
+				},
+				animatiionData:{},//动画
+				animatiionData1:{},
+				animatiionData2:{},
+				animatiionData3:{},
+				isAdd:false
 			};
 		},
 		onReady() {
@@ -85,6 +90,41 @@
 					console.log("节点离页面顶部的距离为"+data.top)
 					this.addHeight=data.height-186
 				}).exec();
+			},
+			//添加好友动画
+			addFriendAnims:function(){
+				this.isAdd=!this.isAdd
+				var animation=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
+				var animation1=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
+				var animation2=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
+				var animation3=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
+				if(this.isAdd){
+					animation.bottom(0).step()
+					animation1.bottom(0).step()
+					animation2.width(120).height(120).top(40).step()
+					animation3.opacity(0).step()
+				}else{
+					animation.bottom(-this.addHeight).step()
+					animation1.bottom(-100).step()
+					animation2.width(200).height(200).top(0).step()
+					animation3.opacity(1).step()
+				}
+				this.animatiionData=animation.export()
+				this.animatiionData1=animation1.export()
+				this.animatiionData2=animation2.export()
+				this.animatiionData3=animation3.export()
 			}
 		}
 	}
@@ -139,10 +179,12 @@
 			}
 			.user-img{
 				z-index: 10;
+				top: 0;
 				width: 400rpx;
 				height: 400rpx;
 				border-radius: 48rpx;
 				border: 6rpx solid rgba(255,255,255,1);
+				box-shadow: 0 36rpx 40rpx 0px rgba(39,40,50,0.1);
 			}
 		}
 		.user-imf{
@@ -168,7 +210,7 @@
 	}
 	.bottom-bar{
 		position: fixed;
-		bottom: 0;
+		// bottom: 0;
 		width: 100%;
 		height: 104rpx;
 		box-sizing: border-box;
@@ -213,7 +255,7 @@
 	}
 	.add-bt{
 		position: fixed;
-		bottom: 0;
+		bottom: -104rpx;
 		width: 100%;
 		z-index: 100;
 		height: 104rpx;
