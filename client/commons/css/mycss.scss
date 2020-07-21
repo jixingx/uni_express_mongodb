@@ -17,7 +17,7 @@
 	border-bottom:1px solid $uni-border-color; */
 	.top-bar-left{
 		float: left;
-		padding-left: $uni-spacing-col-base;
+		padding:0 $uni-spacing-col-base;
 		image{
 			padding-top: 10rpx;
 			width: 68rpx;
@@ -40,9 +40,9 @@
 	.top-bar-center{
 		position: absolute;
 		text-align: center;
-		left: 0;
+		left: 120rpx;
 		top: 0;
-		right: 0;
+		right: 186rpx;
 		bottom: 0;
 		margin:auto;
 		.logo{
@@ -87,4 +87,25 @@
 			}
 		}
 	}
+}
+//底部样式
+.bottom-bar{
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 90rpx;
+	padding-top: 10rpx;
+	padding-bottom: var(--status-bar-height);
+	// background-color: #eee;
+	
+}
+//btn
+.btn1{
+	text-align: center;
+	line-height: 80rpx;
+	height: 80rpx;
+	color: $uni-text-color;
+	font-size: $uni-font-size-lg;
+	// background: $uni-color-primary;
+	border-radius: $uni-border-radius-sm;
 }

@@ -1,16 +1,16 @@
 <template>
 	<view class="content">
 		<view class="top-bar">
-			<view class="top-bar-left">
-				<image src="../../static/logo.png" mode=""></image>
-			</view>
+			<navigator url="../userhome/userhome" class="top-bar-left" hover-class="none">
+				<image src="../../static/logo.png" mode="" ></image>
+			</navigator>
 			<view class="top-bar-center">
 				<image src="../../static/images/index/logo.png" class="logo"></image>
 			</view>
 			<view class="top-bar-right">
-				<view class="search">
+				<navigator url="../search/search" class="search" hover-class="none">
 					<image src="../../static/images/index/search.png" mode=""></image>
-				</view>
+				</navigator>
 				<view class="add">
 					<image src="../../static/images/index/add.png" mode=""></image>
 				</view>

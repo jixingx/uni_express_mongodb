@@ -11,7 +11,7 @@
 			</view>
 		</view>
 		<view class="bg">
-			<view class="bg-bai">	
+			<view class="bg-bai" :animation="animatiionData4">	
 			</view>
 			<image src="../../static/logo.png" class="bg-img" mode="aspectFill"></image>
 		</view>
@@ -33,8 +33,8 @@
 					{{user.intr}}
 				</view>
 			</view>
-			<view class="bottom-bar">
-				<view class="bottom-btn" @tap="addFriendAnims">加为好友</view>
+			<view class="bottom-bar" >
+				<view class="bottom-btn btn1" @tap="addFriendAnims">加为好友</view>
 			</view>
 		</view>
 		<view class="add-misg" :style="{height:addHeight+'px',bottom:-+addHeight+'px'}" :animation="animatiionData">
@@ -43,11 +43,11 @@
 			</view>
 			<textarea :value="myname+'请求加为好友'" maxlength="120" class="add-main" />
 		</view>
-		<view class="add-bt" :animation="animatiionData1">
-			<view class="close" @tap="addFriendAnims">
+		<view class="add-bt bottom-bar" :animation="animatiionData1">
+			<view class="close btn1" @tap="addFriendAnims">
 				取消
 			</view>
-			<view class="send">
+			<view class="send btn1">
 				发送
 			</view>
 		</view>
@@ -70,6 +70,7 @@
 				animatiionData1:{},
 				animatiionData2:{},
 				animatiionData3:{},
+				animatiionData4:{},
 				isAdd:false
 			};
 		},
@@ -110,21 +111,28 @@
 					duration:300,
 					timingFunction:'ease'
 				})
+				var animation4=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
 				if(this.isAdd){
 					animation.bottom(0).step()
 					animation1.bottom(0).step()
-					animation2.width(120).height(120).top(40).step()
+					animation2.width(120).height(120).step()
 					animation3.opacity(0).step()
+					animation4.backgroundColor('rgba(255,228,49,0.6)').step();
 				}else{
 					animation.bottom(-this.addHeight).step()
 					animation1.bottom(-100).step()
-					animation2.width(200).height(200).top(0).step()
+					animation2.width(200).height(200).step()
 					animation3.opacity(1).step()
+					animation4.backgroundColor('rgba(255,228,49,0)').step();
 				}
 				this.animatiionData=animation.export()
 				this.animatiionData1=animation1.export()
 				this.animatiionData2=animation2.export()
 				this.animatiionData3=animation3.export()
+				this.animatiionData4=animation4.export()
 			}
 		}
 	}
@@ -156,7 +164,7 @@
 	}
 	.main{
 		text-align: center;
-		padding-top: 148rpx;
+		padding-top: 240rpx;
 		.user-header{
 			width: 412rpx;
 			margin: 0 auto;
@@ -209,21 +217,9 @@
 		}
 	}
 	.bottom-bar{
-		position: fixed;
-		// bottom: 0;
-		width: 100%;
-		height: 104rpx;
-		box-sizing: border-box;
-		padding: 12rpx $uni-spacing-col-base;
-		// background-color: #eee;
 		.bottom-btn{
-			text-align: center;
-			line-height: 88rpx;
-			height: 88rpx;
-			color: $uni-text-color;
-			font-size: $uni-font-size-lg;
-			background: $uni-color-primary;
-			border-radius: $uni-border-radius-sm;
+			background-color:$uni-color-primary;
+			margin: 0 $uni-spacing-col-base;
 		}
 	}
 	.add-misg{
@@ -254,35 +250,18 @@
 		}
 	}
 	.add-bt{
-		position: fixed;
-		bottom: -104rpx;
-		width: 100%;
+		bottom: -200rpx;
 		z-index: 100;
-		height: 104rpx;
-		box-sizing: border-box;
-		padding: 12rpx $uni-spacing-col-base;
-		// background-color: #eee;
 		display: flex;
 		.close{
-			text-align: center;
-			line-height: 80rpx;
 			width: 172rpx;
-			height: 80rpx;
-			color: $uni-text-color;
-			font-size: $uni-font-size-lg;
 			background: $uni-bg-color-hover;
-			border-radius: $uni-border-radius-sm;
+			margin:0 $uni-spacing-col-base ;
 		}
 		.send{
-			margin-left:$uni-spacing-col-base;
+			margin-right:$uni-spacing-col-base;
 			flex: auto;
-			text-align: center;
-			line-height: 80rpx;
-			height: 80rpx;
-			color: $uni-text-color;
-			font-size: $uni-font-size-lg;
 			background: $uni-color-primary;
-			border-radius: $uni-border-radius-sm;
 		}
 	}
 </style>
