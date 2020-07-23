@@ -14,6 +14,8 @@ app.all('*', function (req, res, next) {
     next();
 });
 
+
+
 //配置body-parser
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
