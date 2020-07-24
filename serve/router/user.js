@@ -28,13 +28,17 @@ var transporter=nodemailer.createTransport({
  * @apiName register
  * @apiGroup User
  * 
- * @apiParamExample {json} 请求参数:
+ * @apiParam (请求参数) {String} user 名字
+ * @apiParam (请求参数) {String} email  邮箱
+ * @apiParam (请求参数) {String} psw 密码
+ * @apiParamExample {json} 请求参数示例:
  *  {
  *      user:'zs',//用户名
  *      email:'123@qq.com',//邮箱
  *      psw:'123'//密码
  *  }
  * 
+ * @apiSuccess (成功返回) {Object} obj 用户信息
  * @apiSuccessExample {josn} 成功返回信息：
  * {
  *  sex: 'asexual',//性别
@@ -61,7 +65,7 @@ router.post('/register',(req,res)=>{
         //发送信息内容
         let options={
             from:'1544916656@qq.com',//发送者邮箱
-            to:userEamil,//接收者邮箱
+            to:email,//接收者邮箱
             subject:'感谢你在yike注册',//标题
             html:'<span>欢迎您的加入</span><a href="http://localhost:8080">点击链接</a>'
         }
@@ -86,11 +90,13 @@ router.post('/register',(req,res)=>{
  * @apiName name
  * @apiGroup User
  * 
- * @apiParamExample {json} 请求参数:
+ * @apiParam (请求参数) {String} user 名字
+ * @apiParamExample {json} 请求参数示例:
  *  {
  *      user:'123@qq.com'//用户名
  *  }
  * 
+ * @apiSuccess (成功返回) {Object} obj 包含状态码和用户名状态
  * @apiSuccessExample {josn} 成功返回信息：
  * {
  *  status: 200,//成功状态码
@@ -122,11 +128,13 @@ router.post('/name',(req,res)=>{
  * @apiName email
  * @apiGroup User
  * 
- * @apiParamExample {json} 请求参数:
+ * @apiParam (请求参数) {String} email 邮箱
+ * @apiParamExample {json} 请求参数示例:
  *  {
  *      email:'zs'//邮箱
  *  }
  * 
+ * @apiSuccess (成功返回) {Object} obj 包含状态码和邮箱状态
  * @apiSuccessExample {josn} 成功返回信息：
  * {
  *  status: 200,//成功状态码

@@ -15,6 +15,7 @@
 4. mongoose(连接数据库)
 5. nodemailer(链接邮箱)
 6. bcryptjs(密码加密)
+7. apidoc(书写接口文档)
 
 ## 数据库
 `使用MongoDB数据库`

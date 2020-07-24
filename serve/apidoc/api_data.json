@@ -6,15 +6,37 @@
     "name": "email",
     "group": "User",
     "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>邮箱</p>"
+          }
+        ]
+      },
       "examples": [
         {
-          "title": "请求参数:",
+          "title": "请求参数示例:",
           "content": "{\n    email:'zs'//邮箱\n}",
           "type": "json"
         }
       ]
     },
     "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和邮箱状态</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "成功返回信息：",
@@ -43,15 +65,37 @@
     "name": "name",
     "group": "User",
     "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>名字</p>"
+          }
+        ]
+      },
       "examples": [
         {
-          "title": "请求参数:",
+          "title": "请求参数示例:",
           "content": "{\n    user:'123@qq.com'//用户名\n}",
           "type": "json"
         }
       ]
     },
     "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和用户名状态</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "成功返回信息：",
@@ -80,15 +124,51 @@
     "name": "register",
     "group": "User",
     "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>名字</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "email",
+            "description": "<p>邮箱</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "psw",
+            "description": "<p>密码</p>"
+          }
+        ]
+      },
       "examples": [
         {
-          "title": "请求参数:",
+          "title": "请求参数示例:",
           "content": "{\n    user:'zs',//用户名\n    email:'123@qq.com',//邮箱\n    psw:'123'//密码\n}",
           "type": "json"
         }
       ]
     },
     "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>用户信息</p>"
+          }
+        ]
+      },
       "examples": [
         {
           "title": "成功返回信息：",
