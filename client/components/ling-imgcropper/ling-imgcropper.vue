@@ -136,7 +136,7 @@
             containerTop() {
                 let top = 0
                 // #ifdef H5
-                    top = 44
+                    top = 0
                 // #endif
                 return top;
             },
@@ -551,7 +551,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        z-index: 998;
+        z-index: 1001;
         box-sizing: border-box;
         user-select: none;
         -webkit-user-select: none;

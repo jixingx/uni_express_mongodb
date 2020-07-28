@@ -22,7 +22,8 @@
 						头像
 					</view>
 					<view class="user-head">
-						<image :src="imgurl" mode="" class="user-img"></image>
+						<image-cropper  :src="tempFilePath" @confirm="confirm" @cancel="cancel" ></image-cropper>
+						    <image :src="cropFilePath" @tap="upload"  class="user-img" ></image>
 					</view>
 					<view class="more">
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
@@ -132,16 +133,19 @@
 </template>
 
 <script>
+	import ImageCropper from "../../components/ling-imgcropper/ling-imgcropper.vue";
 	export default {
 		data() {
 			const currentDate = this.getDate({
 				format: true
 			})
 			return {
-				imgurl:'../../static/logo.png',
+				cropFilePath:'../../static/logo.png',
 				array: ['男', '女', '未知'],
 				index:0,
 				date: currentDate,
+				tempFilePath: '',
+				headimg:''
 			};
 		},
 		computed: {
@@ -152,6 +156,7 @@
 				return this.getDate('end');
 			}
 		},
+		components: {ImageCropper},
 		methods:{
 			toSignIn:function(){
 				uni.navigateBack({
@@ -167,6 +172,7 @@
 			bindDateChange: function(e) {
 				this.date = e.target.value
 			},
+			//获取日期
 			getDate(type) {
 				const date = new Date();
 				let year = date.getFullYear();
@@ -181,6 +187,42 @@
 				month = month > 9 ? month : '0' + month;;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
+			},
+			//头像裁剪
+			upload() {
+				uni.chooseImage({
+					count: 1, //默认9
+					sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+					sourceType: ['album','camera'], //从相册选择或拍照选择
+					success: (res) => {
+						this.tempFilePath = res.tempFilePaths.shift()
+					}
+				});
+			},
+			confirm(e) {
+				this.tempFilePath = '';
+				this.cropFilePath = e.detail.tempFilePath;
+				this.headimg=e.detail.tempFilePath;
+				uni.uploadFile({
+					url:'后端地址上传图片接口地址',
+					filePath: this.headimg,
+					name: 'file',
+					fileType:'image',
+						//formData:{},传递参数
+					success: (uploadFileRes) => { 
+						 var backstr= uploadFileRes.data;
+	//自定义操作
+					},
+					complete() {
+						//console.log("this is headimg"+this.headimg)   
+					},
+					fail(e) {
+						console.log("this is errormes "+e.message)  
+					}
+				});
+			},
+			cancel() {
+				console.log('canceled')
 			}
 		}
 	}
