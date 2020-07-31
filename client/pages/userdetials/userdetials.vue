@@ -29,12 +29,12 @@
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
 					</view>
 				</view>
-				<view class="row">
+				<view class="row"  @tap="modify('签名',dataarr.singn,false)">
 					<view class="title">
 						签名
 					</view>
 					<view class="cont">
-						广泛的的风格突然能和你规划同样哪天哪天和人谈话人体和人谈话人体不让别人
+						{{dataarr.singn}}
 					</view>
 					<view class="more">
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
@@ -45,17 +45,17 @@
 						注册
 					</view>
 					<view class="cont">
-						2020-04-20 23:23:32
+						{{changeTime(dataarr.zhuce)}}
 					</view>
 				</view>
 			</view>
 			<view class="column">
-				<view class="row">
+				<view class="row" @tap="modify('昵称',dataarr.name,false)">
 					<view class="title">
 						昵称
 					</view>
 					<view class="cont">
-						好多课
+						{{dataarr.name}}
 					</view>
 					<view class="more">
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
@@ -87,23 +87,23 @@
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
 					</view>
 				</view>
-				<view class="row">
+				<view class="row" @tap="modify('电话',dataarr.tell,false)">
 					<view class="title">
 						电话
 					</view>
 					<view class="cont">
-						12323246865
+						{{dataarr.tell}}
 					</view>
 					<view class="more">
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
 					</view>
 				</view>
-				<view class="row">
+				<view class="row"  @tap="modify('邮箱',dataarr.mail,true)">
 					<view class="title">
 						邮箱
 					</view>
 					<view class="cont">
-						12323246865@qq.com
+						{{dataarr.mail}}
 					</view>
 					<view class="more">
 						<image src="../../static/images/userdetials/more.png" mode="aspectFit"></image>
@@ -127,25 +127,58 @@
 			<view class="bt2">
 				退出登录
 			</view>
-			
+		</view>
+		<view class="modify" :style="{bottom:'-'+modifyHeight+'px'}" :animation="animatiionData">
+			<view class="modify-header">
+				<view class="close" @tap="modify">
+					取消
+				</view>
+				<view class="title">
+					签名
+				</view>
+				<view class="define" @tap="modifyStbmit">
+					确定
+				</view>
+			</view>
+			<view class="modify-main">
+				<input type="text" class="modfiy-pwd" placeholder="请输入原密码" placeholder-style="color:#bbb;font-weighht:400;" v-show="ispwd"></input>
+				<textarea v-model="data" class="modfiy-content"></textarea>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
 	import ImageCropper from "../../components/ling-imgcropper/ling-imgcropper.vue";
+	import myfun from "@/commons/js/myfun.js";
 	export default {
 		data() {
 			const currentDate = this.getDate({
 				format: true
 			})
 			return {
+				dataarr:{
+					name:'小明',
+					singn:'努力加油努力加油努力加油努力加油努力加油努力加油努力加油努力加油',
+					zhuce:new Date(),
+					sex:'男',
+					birth:'1998-04-12',
+					tell:'12345655353',
+					mail:'13245655@qq.com'
+				},//模拟数据
 				cropFilePath:'../../static/logo.png',
 				array: ['男', '女', '未知'],
 				index:0,
 				date: currentDate,
 				tempFilePath: '',
-				headimg:''
+				headimg:'',
+				modifyTitle:'',//修改标题
+				data:'修改的内容',//修改内容
+				ispwd:false,//是否显示密码项
+				pwd:'',//原密码
+				animatiionData:{},//动画
+				isModfiy:false,//动画开关
+				modifyHeight:'',//页面高度
 			};
 		},
 		computed: {
@@ -157,11 +190,18 @@
 			}
 		},
 		components: {ImageCropper},
+		onReady() {
+			this.getElementStyle();
+		},
 		methods:{
 			toSignIn:function(){
 				uni.navigateBack({
 					delta:1
 				})
+			},
+			//时间处理
+			changeTime:function(date){
+				return myfun.datialTime(date)
 			},
 			//性别选择
 			bindPickerChange: function(e) {
@@ -223,6 +263,34 @@
 			},
 			cancel() {
 				console.log('canceled')
+			},
+			//修改项弹框
+			modify:function(type,data,ispwd){
+				this.ispwd=ispwd
+				this.modifyTitle=type
+				this.data=data
+				this.isModfiy=!this.isModfiy;
+				var animation=uni.createAnimation({
+					duration:300,
+					timingFunction:'ease'
+				})
+				if(this.isModfiy){
+					animation.bottom(0).step()
+				}else{
+					animation.bottom(-this.modifyHeight).step()
+				}
+				this.animatiionData=animation.export()
+			},
+			//获取页面高度
+			getElementStyle:function(){
+				const query=uni.createSelectorQuery().in(this);
+				query.select('.modify').boundingClientRect(data=>{
+					this.modifyHeight=data.height
+				}).exec();
+			},
+			//弹窗修改确定
+			modifyStbmit:function(){
+				this.modify();
 			}
 		}
 	}
@@ -298,6 +366,73 @@
 			font-size: $uni-font-size-lg;
 			color: $uni-color-warning;
 			line-height: 88rpx;
+		}
+	}
+	// 修改弹窗
+	.modify{
+		position: fixed;
+		z-index: 1002;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		background-color: #fff;
+		.modify-header{
+			width: 100%;
+			height: 88rpx;
+			padding-top: var(--status-bar-height);
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			border-bottom: 1px solid $uni-border-color;
+			.close{
+				padding-left: $uni-spacing-col-base;
+				font-size: $uni-font-size-lg;
+				color: $uni-text-color;
+				line-height: 44rpx;
+			}
+			.title{
+				flex: auto;
+				text-align: center;
+				font-size: 40rpx;
+				color: $uni-text-color;
+				line-height: 88rpx;
+			}
+			.define{
+				padding-right: $uni-spacing-col-base;
+				font-size: $uni-font-size-lg;
+				color: $uni-color-success;
+				line-height: 44rpx;
+			}
+		}
+		.modify-main{
+			display: flex;
+			padding:$uni-spacing-col-base;
+			flex-direction: column;
+			.modfiy-pwd{
+				padding: 16rpx 20rpx;
+				box-sizing: border-box;
+				width: 100%;
+				margin-bottom: $uni-spacing-col-base;
+				flex: auto;
+				height: 88rpx;
+				background: $uni-bg-color-grey;
+				border-radius: $uni-border-radius-base;
+				font-size: $uni-font-size-lg;
+				color: $uni-text-color;
+				line-height: 88rpx;
+			}
+			.modfiy-content{
+				padding: 16rpx 20rpx;
+				box-sizing: border-box;
+				width: 100%;
+				flex: auto;
+				height: 386rpx;
+				background: $uni-bg-color-grey;
+				border-radius: $uni-border-radius-base;
+				font-size: $uni-font-size-lg;
+				color: $uni-text-color;
+				line-height: 44rpx;
+			}
 		}
 	}
 </style>

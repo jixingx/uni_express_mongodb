@@ -84,6 +84,7 @@
 					delta:1
 				})
 			},
+			//获取页面高度
 			getElementStyle:function(){
 				const query=uni.createSelectorQuery().in(this);
 				query.select('.bg').boundingClientRect(data=>{
