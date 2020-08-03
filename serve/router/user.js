@@ -9,6 +9,16 @@ var salt=bcrypt.genSaltSync(10);
 // //解密
 // var verif=bcrypt.compareSync("B4c0/\/",hash)
 
+//引入token
+var jwt=require('jsonwebtoken');
+//生成token
+let poyload={name:'张三',admin:true}
+let secret="chartshiguang"
+let token=jwt.sign(poyload,secret,{expiresIn:3600*24*120})
+//解析token
+let payload=jwt.verify(token,secret)
+console.log(payload)
+
 //引入数据库模块
 var User=require('../model/User');
 //引入邮箱模块
@@ -162,6 +172,58 @@ router.post('/email',(req,res)=>{
 })
 
 
+//登录接口
+/**
+ * @api {POST} /user/login 登录接口
+ * @apiName login
+ * @apiGroup User
+ * 
+ * @apiParam (请求参数) {String} user 用户名或邮箱
+ * @apiParam (请求参数) {String} psw 密码
+ * @apiParamExample {json} 请求参数示例:
+ *  {
+ *      user:'123@qq.com'，//用户名
+ *      psw:'12312' //密码
+ *  }
+ * 
+ * @apiSuccess (成功返回) {Object} obj 包含状态码和用户名状态
+ * @apiSuccessExample {josn} 成功返回信息：
+ * {
+ *  status: 200,//成功状态码
+ *  doc: {},//用户信息
+ * }
+ * 
+ * @apiErrorExample {String} 错误返回信息：
+ *  返回500状态码和错误信息
+ *  or
+ *  res.send({status:400,'doc':'用户名或密码错误'})
+ *  
+ */
+router.post('/login',(req,res)=>{
+    let {user,pwd}=req.body
+    User.find({$or:[
+        {'name':user},
+        {'email':user}
+    ]},{'name':1,'imgurl':1,'psw':1},function(err,doc){
+        if(err){
+            res.status(500).send(err);
+        }else{
+            if(doc==''){
+                res.send({status:400,'doc':'用户名或密码错误'})
+            }else{
+                let hashpwd=bcrypt.hashSync(pwd,salt)
+                if(doc[0].pwd==hashpwd){
+                    res.json({
+                        status:200,
+                        doc
+                    })
+                }else{
+                    res.send({status:400,'doc':'用户名或密码错误'})
+                }
+            }
+        }
+    })
+})
 
 
 module.exports=router

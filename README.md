@@ -16,6 +16,7 @@
 5. nodemailer(链接邮箱)
 6. bcryptjs(密码加密)
 7. apidoc(书写接口文档)
+8. jsonwebtoken(生成和解析token)
 
 ## 数据库
 `使用MongoDB数据库`
