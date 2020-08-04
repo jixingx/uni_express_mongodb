@@ -41,9 +41,10 @@
 			//后台连接测试
 			testFun:function(){
 				uni.request({
-					url:'http://localhost:3000/user/register',
+					url:'http://localhost:3000/user/login',
 					data:{
-						user:this.user
+						user:this.user,
+						pwd:this.psw
 					},
 					method:"POST",
 					success:function(data){

@@ -106,7 +106,7 @@
       "examples": [
         {
           "title": "成功返回信息：",
-          "content": "{\n status: 200,//成功状态码\n doc: {},//用户信息\n}",
+          "content": "{\n status: 200,//成功状态码\n back: {//用户信息\n     id:doc[0]._id,//用户id\n     name:doc[0].name,//用户名\n     imgurl:doc[0].imgurl,用户图片\n     token:token//token\n },\n}",
           "type": "josn"
         }
       ]

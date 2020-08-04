@@ -12,12 +12,12 @@ var salt=bcrypt.genSaltSync(10);
 //引入token
 var jwt=require('jsonwebtoken');
 //生成token
-let poyload={name:'张三',admin:true}
-let secret="chartshiguang"
-let token=jwt.sign(poyload,secret,{expiresIn:3600*24*120})
+// let poyload={name:'张三',admin:true}
+// let secret="chartshiguang"
+// let token=jwt.sign(poyload,secret,{expiresIn:3600*24*120})
 //解析token
-let payload=jwt.verify(token,secret)
-console.log(payload)
+// let payload=jwt.verify(token,secret)
+// console.log(payload)
 
 //引入数据库模块
 var User=require('../model/User');
@@ -190,7 +190,12 @@ router.post('/email',(req,res)=>{
  * @apiSuccessExample {josn} 成功返回信息：
  * {
  *  status: 200,//成功状态码
- *  doc: {},//用户信息
+ *  back: {//用户信息
+ *      id:doc[0]._id,//用户id
+ *      name:doc[0].name,//用户名
+ *      imgurl:doc[0].imgurl,用户图片
+ *      token:token//token
+ *  },
  * }
  * 
  * @apiErrorExample {String} 错误返回信息：
@@ -205,17 +210,28 @@ router.post('/login',(req,res)=>{
         {'name':user},
         {'email':user}
     ]},{'name':1,'imgurl':1,'psw':1},function(err,doc){
+        
         if(err){
             res.status(500).send(err);
         }else{
             if(doc==''){
                 res.send({status:400,'doc':'用户名或密码错误'})
             }else{
-                let hashpwd=bcrypt.hashSync(pwd,salt)
-                if(doc[0].pwd==hashpwd){
+                let verif=bcrypt.compareSync(pwd,doc[0].psw)
+                console.log(verif)
+                if(verif){
+                    let poyload={id:doc[0]._id}
+                    let secret="chartshiguang"
+                    let token=jwt.sign(poyload,secret,{expiresIn:3600*24*120})
+                    let back={
+                        id:doc[0]._id,
+                        name:doc[0].name,
+                        imgurl:doc[0].imgurl,
+                        token:token
+                    }
                     res.json({
                         status:200,
-                        doc
+                        back
                     })
                 }else{
                     res.send({status:400,'doc':'用户名或密码错误'})
