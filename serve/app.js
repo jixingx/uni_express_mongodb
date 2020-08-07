@@ -29,11 +29,35 @@ app.get('/',function(req,res){
     res.send('hello')
 })
 
+//引入token
+// var jwt=require('jsonwebtoken');
+// //token判断
+// app.use(function(req,res,next){
+//     var token = req.headers['authorization'];
+//     if(token!='undefined'){
+//         //处理token匹配
+//         let tokenMatch=jwt.verifyToken(token)
+//         if(tokenMatch){
+
+//         }
+//     }else{
+//         next()
+//     }
+// })
+
 //配置路由
 var ceshi=require('./router/ceshi')
 var user=require('./router/user')
+var friend=require('./router/friend')
+var group=require('./router/group')
+var groupuser=require('./router/groupuser')
 app.use('/ceshi',ceshi)
 app.use('/user',user)
+app.use('/friend',friend)
+app.use('/group',group)
+app.use('/groupuser',groupuser)
+
+
 
 //处理404
 app.use(function(req,res,next){

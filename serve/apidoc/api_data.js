@@ -2,7 +2,7 @@ define({ "api": [
   {
     "type": "POST",
     "url": "/user/email",
-    "title": "注册验证邮箱接口",
+    "title": "注册验证邮箱接口(/email)",
     "name": "email",
     "group": "User",
     "parameter": {
@@ -56,12 +56,17 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "router/user.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/email"
+      }
+    ]
   },
   {
     "type": "POST",
     "url": "/user/login",
-    "title": "登录接口",
+    "title": "登录接口(/login)",
     "name": "login",
     "group": "User",
     "parameter": {
@@ -78,7 +83,7 @@ define({ "api": [
             "group": "请求参数",
             "type": "String",
             "optional": false,
-            "field": "psw",
+            "field": "pwd",
             "description": "<p>密码</p>"
           }
         ]
@@ -122,12 +127,17 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "router/user.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/login"
+      }
+    ]
   },
   {
     "type": "POST",
     "url": "/user/name",
-    "title": "注册验证用户接口",
+    "title": "注册验证用户接口(/name)",
     "name": "name",
     "group": "User",
     "parameter": {
@@ -181,12 +191,17 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "router/user.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/name"
+      }
+    ]
   },
   {
     "type": "POST",
     "url": "/user/register",
-    "title": "注册接口",
+    "title": "注册接口(/register)",
     "name": "register",
     "group": "User",
     "parameter": {
@@ -254,6 +269,281 @@ define({ "api": [
     },
     "version": "0.0.0",
     "filename": "router/user.js",
-    "groupTitle": "User"
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/register"
+      }
+    ]
+  },
+  {
+    "type": "POST",
+    "url": "/user/searchUser",
+    "title": "用户搜索接口(/searchUser)",
+    "name": "searchUser",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "user",
+            "description": "<p>用户名或邮箱</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    user:'123@qq.com'，//用户名或邮箱\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和用户名状态</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200,//成功状态码\n doc: {//用户信息\n     name:doc[0].name,//用户名\n     email:doc[0].email,//用户邮箱\n     imgurl:doc[0].imgurl,用户图片\n },\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/user.js",
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/searchUser"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/friend/isFriend",
+    "title": "判断是否为好友(/isFriend)",
+    "name": "isFriend",
+    "group": "friend",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>当前用户id</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "fid",
+            "description": "<p>其他用户id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    uid:'24fsdm'//当前用户id\n    fid:'24fsdm'//其他用户id\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>状态码200为是好友400未找到不是好友</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200或400,//200为是好友400未找到不是好友\n \n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/friend.js",
+    "groupTitle": "friend",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/friend/isFriend"
+      }
+    ]
+  },
+  {
+    "type": "POST",
+    "url": "/group/searchGroup",
+    "title": "搜索群(/searchGroup)",
+    "name": "isFriend",
+    "group": "group",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>群名字</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    uid:'24fsdm'//当前用户id\n    fid:'24fsdm'//其他用户id\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>状态码200为是好友400未找到不是好友</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200或400,//200为是好友400未找到不是好友\n doc:{\n     name:'',//群组那个字\n     imgurl:'',//群图片\n }\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/group.js",
+    "groupTitle": "group",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/group/searchGroup"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/groupuser/isInGroup",
+    "title": "判断是否在群里(/isInGroup)",
+    "name": "isInGroup",
+    "group": "groupuser",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>当前用户id</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "groupId",
+            "description": "<p>群id</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    uid:'24fsdm'//当前用户id\n    fid:'24fsdm'//其他用户id\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>状态码200为是在群里400未在群里</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200或400,//200为是在群里400未在群里\n \n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/groupuser.js",
+    "groupTitle": "groupuser",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/groupuser/isInGroup"
+      }
+    ]
   }
 ] });

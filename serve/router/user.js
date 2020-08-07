@@ -34,7 +34,7 @@ var transporter=nodemailer.createTransport({
 
 //注册发送邮件给用户
 /**
- * @api {POST} /user/register 注册接口
+ * @api {POST} /user/register 注册接口(/register)
  * @apiName register
  * @apiGroup User
  * 
@@ -96,7 +96,7 @@ router.post('/register',(req,res)=>{
 
 //验证用户是否已被注册
 /**
- * @api {POST} /user/name 注册验证用户接口
+ * @api {POST} /user/name 注册验证用户接口(/name)
  * @apiName name
  * @apiGroup User
  * 
@@ -134,7 +134,7 @@ router.post('/name',(req,res)=>{
 })
 //验证邮箱是否已被注册
 /**
- * @api {POST} /user/email 注册验证邮箱接口
+ * @api {POST} /user/email 注册验证邮箱接口(/email)
  * @apiName email
  * @apiGroup User
  * 
@@ -174,12 +174,12 @@ router.post('/email',(req,res)=>{
 
 //登录接口
 /**
- * @api {POST} /user/login 登录接口
+ * @api {POST} /user/login 登录接口(/login)
  * @apiName login
  * @apiGroup User
  * 
  * @apiParam (请求参数) {String} user 用户名或邮箱
- * @apiParam (请求参数) {String} psw 密码
+ * @apiParam (请求参数) {String} pwd 密码
  * @apiParamExample {json} 请求参数示例:
  *  {
  *      user:'123@qq.com'，//用户名
@@ -237,6 +237,51 @@ router.post('/login',(req,res)=>{
                     res.send({status:400,'doc':'用户名或密码错误'})
                 }
             }
+        }
+    })
+})
+//搜索用户
+/**
+ * @api {POST} /user/searchUser 用户搜索接口(/searchUser)
+ * @apiName searchUser
+ * @apiGroup User
+ * 
+ * @apiParam (请求参数) {String} user 用户名或邮箱
+ * @apiParamExample {json} 请求参数示例:
+ *  {
+ *      user:'123@qq.com'，//用户名或邮箱
+ *  }
+ * 
+ * @apiSuccess (成功返回) {Object} obj 包含状态码和用户名状态
+ * @apiSuccessExample {josn} 成功返回信息：
+ * {
+ *  status: 200,//成功状态码
+ *  doc: {//用户信息
+ *      name:doc[0].name,//用户名
+ *      email:doc[0].email,//用户邮箱
+ *      imgurl:doc[0].imgurl,用户图片
+ *  },
+ * }
+ * 
+ * @apiErrorExample {String} 错误返回信息：
+ *  返回500状态码和错误信息
+ *  
+ */
+router.post('/searchUser',(req,res)=>{
+    let wherestr
+    if(JSON.stringify(req.body)=="{}"){
+        wherestr={}
+    }else{
+        wherestr={$or:[
+            {'name':{$regex:req.body.user}},//模糊搜索
+            {'email':{$regex:req.body.user}}
+        ]}
+    }
+    User.find(wherestr,{'name':1,'email':1,'imgurl':1},function(err,doc){
+        if(err){
+            res.status(500).send(err);
+        }else{
+            res.send({status:200,doc})
         }
     })
 })
