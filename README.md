@@ -17,6 +17,7 @@
 6. bcryptjs(密码加密)
 7. apidoc(书写接口文档)
 8. jsonwebtoken(生成和解析token)
+9. express-jwt(控制哪些路径不用携带token)
 
 ## 数据库
 `使用MongoDB数据库`

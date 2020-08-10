@@ -37,6 +37,7 @@
 </template>
 
 <script>
+	import request from '../../http/index.js'
 	export default {
 		data() {
 			return {
@@ -74,8 +75,8 @@
 					if(reg.test(this.email)){
 						this.invalid=false
 						let That=this
-						uni.request({
-							url:'http://localhost:3000/user/email',
+						request({
+							url:'/user/email',
 							data:{
 								email:this.email
 							},
@@ -104,8 +105,8 @@
 			getUser:function(e){
 				this.user=e.detail.value
 				let That=this
-				uni.request({
-					url:'http://localhost:3000/user/name',
+				request({
+					url:'/user/name',
 					data:{
 						user:this.user
 					},
@@ -148,7 +149,7 @@
 			//注册请求
 			register:function(){
 				if(this.isok){
-					uni.request({
+					request({
 						url:'http://localhost:3000/user/register',
 						data:{
 							user:this.user,

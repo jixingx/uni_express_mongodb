@@ -8,9 +8,9 @@ var bodyParser=require('body-parser')
 app.all('*', function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
     //Access-Control-Allow-Headers ,可根据浏览器的F12查看,把对应的粘贴在这里就行
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    res.header('Access-Control-Allow-Methods', '*');
-    res.header('Content-Type', 'application/json;charset=utf-8');
+    res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept,X-Requested-With");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Credentials","true");
     next();
 });
 
@@ -25,25 +25,21 @@ app.use(bodyParser.json());
 //设置静态目录
 app.use(express.static('./public'))
 
-app.get('/',function(req,res){
-    res.send('hello')
-})
-
-//引入token
-// var jwt=require('jsonwebtoken');
-// //token判断
-// app.use(function(req,res,next){
-//     var token = req.headers['authorization'];
-//     if(token!='undefined'){
-//         //处理token匹配
-//         let tokenMatch=jwt.verifyToken(token)
-//         if(tokenMatch){
-
-//         }
-//     }else{
-//         next()
-//     }
+//验证token是否过期并规定哪些路由不用验证
+const expressJwt=require('express-jwt');
+let secret="chartshiguang"
+app.use(expressJwt({
+    secret: secret,
+    algorithms: ["HS256"] 
+}).unless({
+    path: ['/user/register' ,'/user/login']//除了这个地址，其他的URL都需要验证
+}));
+// app.get('/',function(req,res){
+//     res.send('hello')
 // })
+
+
+
 
 //配置路由
 var ceshi=require('./router/ceshi')

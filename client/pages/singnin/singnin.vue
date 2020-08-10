@@ -48,7 +48,8 @@
 					},
 					method:"POST",
 					success:function(data){
-						console.log(data)
+						
+						uni.setStorageSync('token',data.data.back.token)
 					}
 				})
 			},
