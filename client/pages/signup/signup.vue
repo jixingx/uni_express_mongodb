@@ -149,7 +149,7 @@
 			//注册请求
 			register:function(){
 				if(this.isok){
-					request({
+					uni.request({
 						url:'http://localhost:3000/user/register',
 						data:{
 							user:this.user,

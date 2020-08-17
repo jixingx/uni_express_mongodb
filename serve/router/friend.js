@@ -48,4 +48,46 @@ router.get('/isFriend',(req,res)=>{
     })
 })
 
+//修改好友昵称
+/**
+ * @api {POST} /user/friendMarkName 修改好友昵称(/friendMarkName)
+ * @apiName friendMarkName
+ * @apiGroup friend
+ * 
+ * @apiParam (请求参数) {String} uid 自己id值
+ * @apiParam (请求参数) {String} fid 好友id值
+ * @apiParam (请求参数) {String} name 昵称
+ * @apiParamExample {json} 请求参数示例:
+ *  {
+ *      id:'213312132'，//自己id值
+ *      fid:'32433'，//好友id值
+ *      name:'zs'，//昵称
+ *  }
+ * 
+ * @apiSuccess (成功返回) {Object} obj 状态码
+ * @apiSuccessExample {josn} 成功返回信息：
+ * {
+ *  status: 200//成功状态码
+ * }
+ * 
+ * @apiErrorExample {String} 错误返回信息：
+ *  返回500状态码
+ *  
+ */
+router.post('/friendMarkName',(req,res)=>{
+    let wherestr={'userID':req.body.uid,'friendID':req.body.fid}
+    let updatestr={'markname':req.body.name}
+    //判断是否有密码
+    Friend.updateOne(wherestr,updatestr,function(err,result){
+        if(error){
+            //修改失败
+            res.send({status:500})
+        }else{
+            //修改成功
+            res.send({status:200})
+        }
+    })
+})
+
+
 module.exports=router
