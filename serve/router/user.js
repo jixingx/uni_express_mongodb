@@ -303,9 +303,9 @@ router.post('/searchUser',(req,res)=>{
  * {
  *  status: 200,//成功状态码
  *  doc: {//用户信息
- *      name:doc[0].name,//用户名
- *      email:doc[0].email,//用户邮箱
- *      imgurl:doc[0].imgurl,用户图片
+ *      name:doc.name,//用户名
+ *      email:doc.email,//用户邮箱
+ *      imgurl:doc.imgurl,用户图片
  *      ...
  *  },
  * }

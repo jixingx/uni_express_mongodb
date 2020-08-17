@@ -342,6 +342,297 @@
   },
   {
     "type": "GET",
+    "url": "/user/userDetial",
+    "title": "用户详情(/userDetial)",
+    "name": "userDetial",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    id:'213312132'，//id值\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和用户名状态</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200,//成功状态码\n doc: {//用户信息\n     name:doc.name,//用户名\n     email:doc.email,//用户邮箱\n     imgurl:doc.imgurl,用户图片\n     ...\n },\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/user.js",
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/userDetial"
+      }
+    ]
+  },
+  {
+    "type": "POST",
+    "url": "/user/userUpdate",
+    "title": "用户修改(/userUpdate)",
+    "name": "userUpdate",
+    "group": "User",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "id",
+            "description": "<p>id值</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "pwd",
+            "description": "<p>原密码</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "psw",
+            "description": "<p>新密码</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    id:'213312132'，//id值\n    pwd:'123456'，//原密码\n    psw:'654321'，//新密码\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和用户名状态</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200,//成功状态码\n doc: {//用户信息\n     name:doc[0].name,//用户名\n     email:doc[0].email,//用户邮箱\n     imgurl:doc[0].imgurl,用户图片\n     ...\n },\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息\nor\n返回400状态码表示密码匹配失败",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/user.js",
+    "groupTitle": "User",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/user/userUpdate"
+      }
+    ]
+  },
+  {
+    "type": "POST",
+    "url": "/friend/friendMarkName",
+    "title": "修改好友昵称(/friendMarkName)",
+    "name": "friendMarkName",
+    "group": "friend",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>自己id值</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "fid",
+            "description": "<p>好友id值</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>昵称</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    id:'213312132'，//自己id值\n    fid:'32433'，//好友id值\n    name:'zs'，//昵称\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>状态码</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200//成功状态码\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/friend.js",
+    "groupTitle": "friend",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/friend/friendMarkName"
+      }
+    ]
+  },
+  {
+    "type": "GET",
+    "url": "/friend/getMarkName",
+    "title": "用户详情(/getMarkName)",
+    "name": "getMarkName",
+    "group": "friend",
+    "parameter": {
+      "fields": {
+        "请求参数": [
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "uid",
+            "description": "<p>自己id值</p>"
+          },
+          {
+            "group": "请求参数",
+            "type": "String",
+            "optional": false,
+            "field": "fid",
+            "description": "<p>好友id值</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "请求参数示例:",
+          "content": "{\n    uid:'213312132'，//自己id值\n    fid:'123123123'//好友id值\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "fields": {
+        "成功返回": [
+          {
+            "group": "成功返回",
+            "type": "Object",
+            "optional": false,
+            "field": "obj",
+            "description": "<p>包含状态码和好友昵称</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "成功返回信息：",
+          "content": "{\n status: 200,//成功状态码\n doc: {\n     markname:doc.markname,//好友昵称\n },\n}",
+          "type": "josn"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "错误返回信息：",
+          "content": "返回500状态码和错误信息",
+          "type": "String"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "router/friend.js",
+    "groupTitle": "friend",
+    "sampleRequest": [
+      {
+        "url": "http://localhost:3000/friend/getMarkName"
+      }
+    ]
+  },
+  {
+    "type": "GET",
     "url": "/friend/isFriend",
     "title": "判断是否为好友(/isFriend)",
     "name": "isFriend",

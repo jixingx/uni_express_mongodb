@@ -50,7 +50,7 @@ router.get('/isFriend',(req,res)=>{
 
 //修改好友昵称
 /**
- * @api {POST} /user/friendMarkName 修改好友昵称(/friendMarkName)
+ * @api {POST} /friend/friendMarkName 修改好友昵称(/friendMarkName)
  * @apiName friendMarkName
  * @apiGroup friend
  * 
@@ -89,5 +89,43 @@ router.post('/friendMarkName',(req,res)=>{
     })
 })
 
+//获取好友昵称
+/**
+ * @api {GET} /friend/getMarkName 用户详情(/getMarkName)
+ * @apiName getMarkName
+ * @apiGroup friend
+ * 
+ * @apiParam (请求参数) {String} uid 自己id值
+ * @apiParam (请求参数) {String} fid 好友id值
+ * @apiParamExample {json} 请求参数示例:
+ *  {
+ *      uid:'213312132'，//自己id值
+ *      fid:'123123123'//好友id值
+ *  }
+ * 
+ * @apiSuccess (成功返回) {Object} obj 包含状态码和好友昵称
+ * @apiSuccessExample {josn} 成功返回信息：
+ * {
+ *  status: 200,//成功状态码
+ *  doc: {
+ *      markname:doc.markname,//好友昵称
+ *  },
+ * }
+ * 
+ * @apiErrorExample {String} 错误返回信息：
+ *  返回500状态码和错误信息
+ *  
+ */
+router.get('/getMarkName',(req,res)=>{
+    let wherestr={'userID':req.body.uid,'friendID':req.body.fid}
+    let out={'markname':1}
+    User.findOne(wherestr,out,function(err,doc){
+        if(err){
+            res.status(500).send(err);
+        }else{
+            res.send({status:200,doc})
+        }
+    })
+})
 
 module.exports=router
